@@ -6,6 +6,20 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.get("/health/db", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT NOW()");
+    res.json({
+      ok: true,
+      time: result.rows[0]
+    });
+  } catch (err) {
+    res.status(500).json({
+      ok: false,
+      error: err.message
+    });
+  }
+});
 
 app.get("/", (req, res) => {
   res.send("Sweeps Casino API is running");
