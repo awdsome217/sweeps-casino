@@ -24,3 +24,4 @@ app.get("/health/db", async (req, res) => {
   }
 });
 
+app.listen(...)
