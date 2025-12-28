@@ -66,6 +66,21 @@ app.post("/auth/register", async (req, res) => {
     res.status(500).json({ error: "Registration failed" });
   }
 });
+app.post("/auth/register", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ ok: false, error: "email and password required" });
+    }
+
+    // for now just prove we received it
+    return res.json({ ok: true, email });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ ok: false });
+  }
+});
 
 
 
