@@ -67,7 +67,7 @@ app.post("/auth/register", async (req, res) => {
   }
 });
 
-POST /auth/register
+
 
 
 
