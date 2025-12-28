@@ -1,11 +1,11 @@
-import pool from "./db.js";
-
 import express from "express";
+import pool from "./db.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+
 app.get("/health/db", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");
@@ -14,28 +14,12 @@ app.get("/health/db", async (req, res) => {
       time: result.rows[0]
     });
   } catch (err) {
-    res.status(500).json({
-      ok: false,
-      error: err.message
-    });
+    console.error(err);
+    res.status(500).json({ ok: false });
   }
-});
-
-app.get("/", (req, res) => {
-  res.send("Sweeps Casino API is running");
 });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-app.get("/health/db", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT NOW()");
-    res.json({ ok: true, time: result.rows[0] });
-  } catch (err) {
-    res.status(500).json({ ok: false, error: err.message });
-  }
-});
-
-app.listen(...)
