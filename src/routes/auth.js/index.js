@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ error: "Missing fields" });
     }
 
-    const hash = await bcrypt.hash(password, 10);
+    const hash = await bcryptjs.hash(password, 10);
 
     const result = await pool.query(
       "INSERT INTO users (email, password_hash) VALUES ($1, $2) RETURNING id, email, sc_balance",
