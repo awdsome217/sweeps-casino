@@ -29,6 +29,22 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ error: "Registration failed" });
   }
 });
+} catch (err) {
+  console.error("REGISTER ERROR:", err);
+  console.error("STACK:", err?.stack);
+  res.status(500).json({ error: "Registration failed" });
+}
+
+
+
+
+
+
+
+
+
+
+
 
 export default router;
 
