@@ -1,11 +1,13 @@
 import express from "express";
 import pool from "./db.js";
 import cors from "cors";
-
 const app = express();
-const PORT = process.env.PORT || 3000;
-app.use(express.json());
+
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const PORT = process.env.PORT || 3000;
 
 app.get("/health/db", async (req, res) => {
   try {
@@ -20,8 +22,10 @@ app.get("/health/db", async (req, res) => {
   }
 });
 ;
+
 app.post("/auth/register", async (req, res) => {
   try {
+   console.log("REGISTER BODY:",req.body);
     const { email, password } = req.body;
 
     if (!email || !password) {
