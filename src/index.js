@@ -70,8 +70,7 @@ app.post("/auth/register", async (req, res) => {
     res.status(500).json({ error: "Registration failed" });
   }
 });
-app.post("/auth/register", async (req, res) => {
-  try {
+
     const { email, password } = req.body;
 
     if (!email || !password) {
