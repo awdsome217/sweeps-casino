@@ -22,10 +22,7 @@ app.get("/health/db", async (req, res) => {
   }
 });
 ;
-
-app.post("/auth/register", async (req, res) => {
-  try {
-   console.log("REGISTER BODY:",req.body);
+}
     const { email, password } = req.body;
 
     if (!email || !password) {
