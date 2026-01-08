@@ -1,4 +1,5 @@
 // src/index.js
+import "./db/init.js";
 import authRoutes from "./routes/auth.js";
 import express from "express";
 import cors from "cors";
