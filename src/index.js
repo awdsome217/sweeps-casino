@@ -1,4 +1,5 @@
 // src/index.js
+import authRoutes from "./routes/auth.js";
 import express from "express";
 import cors from "cors";
 import bcrypt from "bcryptjs";
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/auth", authRoutes);
 
 app.get("/health", (req, res) => {
   res.json({ ok: true });
