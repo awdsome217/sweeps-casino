@@ -22,7 +22,7 @@ router.post("/register", async (req, res) => {
 
     res.json({
       ok: true,
-      user: result.rows[0]
+      user: 
     });
   } catch (err) {
     console.error(err);
