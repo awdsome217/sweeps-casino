@@ -1,0 +1,30 @@
+import express from "express";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import pool from "../db.js";
+
+const router = express.Router();
+
+router.post("/register", async (req, res) => {
+  try {
+    const { email, password, username } = req.body;
+
+    if (!email || !password || !username) {
+      return res.status(400).json({ error: "Missing fields" });
+    }
+
+    const hash = await bcrypt.hash(password, 10);
+
+    await pool.query(
+      "INSERT INTO users (email, password_hash, username) VALUES ($1,$2,$3)",
+      [email, hash, username]
+    );
+
+    res.json({ ok: true });
+  } catch (err) {
+    console.error("REGISTER ERROR:", err);
+    res.status(500).json({ error: "Registration failed" });
+  }
+});
+
+export default router;
