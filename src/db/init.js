@@ -1,4 +1,4 @@
-import pool from "../db.js";
+import pool from "../db/db.js";
 
 async function init() {
   await pool.query(`
@@ -8,6 +8,10 @@ async function init() {
       password_hash TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT NOW()
     );
+  `);
+}
+
+init().catch(console.error);
 
     CREATE TABLE IF NOT EXISTS balances (
       user_id INTEGER REFERENCES users(id),
