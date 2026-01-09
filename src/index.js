@@ -55,7 +55,7 @@ app.post("/auth/register", async (req, res) => {
       return res.status(409).json({ error: "Email already exists" });
     }
 
-    return res.status(500).json({ error: "Server error" });
+      return res.status(500).json({ error: "Server error" });
   }
 });
 
