@@ -12,7 +12,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/auth", authRoutes);
-
+app.get("/", (req, res) => {
+  res.json({ ok: true, message: "API is running" });
+});
 app.get("/health", (req, res) => {
   res.json({ ok: true });
 });
