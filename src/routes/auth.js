@@ -61,4 +61,11 @@ router.post("/login", async (req, res) => {
 router.get("/me", requireAuth, (req, res) => {
   res.json({ ok: true, user: req.user });
 });
+router.get("/debug-headers", (req, res) => {
+  res.json({
+    authorization: req.headers.authorization || null,
+    allHeaders: req.headers
+  });
+});
+
 export default router;
