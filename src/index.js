@@ -4,15 +4,7 @@ import authRoutes from "./routes/auth.js";
 import express from "express";
 import cors from "cors";
 import pool from "./db.js";
-import requireAuth from "./requireAuth.js";
-
-app.get("/protected", requireAuth, (req, res) => {
-  res.json({
-    ok: true,
-    message: "You accessed a protected route",
-    user: req.user
-  });
-});
+import requireAuth from "./routes/requireAuth.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
