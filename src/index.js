@@ -11,13 +11,9 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/auth", authRoutes);
-app.get("/", (req, res) => {
-  res.json({ ok: true, message: "API is running" });
-});
-app.get("/health", (req, res) => {
-  res.json({ ok: true });
-});
+
+app.get("/", (req, res) => res.json({ ok: true, message: "API is running" }));
+app.get("/health", (req, res) => res.json({ ok: true }));
 
 app.get("/health/db", async (req, res) => {
   try {
@@ -29,38 +25,6 @@ app.get("/health/db", async (req, res) => {
   }
 });
 
-app.post("/auth/register", async (req, res) => {
-  try {
-    console.log("REGISTER BODY:", req.body);
+app.use("/auth", authRoutes);
 
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      return res.status(400).json({ error: "Email and password required" });
-    }
-
-    const passwordHash = await bcrypt.hash(password, 10);
-
-    const userResult = await pool.query(
-      `INSERT INTO users (email, password_hash)
-       VALUES ($1, $2)
-       RETURNING id, email`,
-      [email, passwordHash]
-    );
-
-    return res.json({ ok: true, user: userResult.rows[0] });
-  } catch (err) {
-    console.error("REGISTER ERROR:", err);
-
-    // common case: duplicate email
-    if (err.code === "23505") {
-      return res.status(409).json({ error: "Email already exists" });
-    }
-
-      return res.status(500).json({ error: "Server error" });
-  }
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
