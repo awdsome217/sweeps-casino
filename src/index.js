@@ -4,7 +4,7 @@ import authRoutes from "./routes/auth.js";
 import express from "express";
 import cors from "cors";
 import pool from "./db.js";
-import requireAuth from "./middleware/requireAuth.js";
+import requireAuth from "./requireAuth.js";
 
 app.get("/protected", requireAuth, (req, res) => {
   res.json({
