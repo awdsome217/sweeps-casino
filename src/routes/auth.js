@@ -1,3 +1,4 @@
+import requireAuth from "./requireAuth.js";
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -56,5 +57,8 @@ router.post("/login", async (req, res) => {
     console.error("LOGIN ERROR:", err);
     return res.status(500).json({ error: "Login failed" });
   }
+});
+router.get("/me", requireAuth, (req, res) => {
+  res.json({ ok: true, user: req.user });
 });
 export default router;
