@@ -1,12 +1,19 @@
 // src/index.js
 import "./db/init.js";
 import authRoutes from "./routes/auth.js";
+import requireAuth from "./routes/requireAuth.js";
 import express from "express";
 import cors from "cors";
 import pool from "./db.js";
-import requireAuth from "./routes/requireAuth.js";
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000
+app.get("/protected", requireAuth, (req, res) => {
+  res.json({
+    ok: true,
+    user: req.user
+  });
+});
 
 app.use(cors());
 app.use(express.json());
