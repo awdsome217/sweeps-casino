@@ -26,6 +26,15 @@ app.get("/protected", requireAuth, (req, res) => {
 app.get("/", (req, res) => {
   res.json({ ok: true, message: "API is running" });
 });
+app.get("/health/db", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT NOW()");
+    res.json({ ok: true, time: result.rows[0].now });
+  } catch (err) {
+    console.error("DB health error:", err);
+    res.status(500).json({ ok: false, error: "db error" });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
